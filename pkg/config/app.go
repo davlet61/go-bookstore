@@ -1,8 +1,20 @@
 package config
 
 import (
-	"github.com/junzhu/gorm"
-	"github.com/junzhu/gorm/dialects/mysql"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 var db *gorm.DB
+
+func Connect() {
+	d, err := gorm.Open(sqlite.Open("db/data.db"), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+	db = d
+}
+
+func GetDB() *gorm.DB {
+	return db
+}
